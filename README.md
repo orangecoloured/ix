@@ -1,7 +1,9 @@
 ix
 ==
 
-An XMPP client based on Strophe, Angular and Ionic
+An XMPP client based on Strophe, Angular and Ionic.
+
+Uses BOSH.
 
 ##### What works for now
 
@@ -11,3 +13,4 @@ An XMPP client based on Strophe, Angular and Ionic
 * Statuses (online, away etc.)
 * Chatstates (composing, active etc.)
 * Receipts
+* Reattaching to previous session (works not very well)
