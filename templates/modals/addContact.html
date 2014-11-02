@@ -1,0 +1,13 @@
+<label class="item item-input">
+    <input type="text" placeholder="Username" ng-model="addContactData.jid">
+</label>
+<label class="item item-input">
+    <input type="text" placeholder="Name" ng-model="addContactData.name">
+</label>
+<label class="item item-input item-select">
+    <span class="input-label">Group:</span>
+    <select ng-model="addContactData.selected" ng-options="item.value as item.group for item in addContactData.groups" ng-change="updateInput(addContactData)"></select>
+</label>
+<label class="item item-input">
+    <input ng-disabled="addContactData.ungroup" type="text" ng-model="addContactData.group" placeholder="Group Name">
+</label>

@@ -1,0 +1,108 @@
+<ion-view title="{{getName({jid: userJid})}}">
+    <ion-content class="profile">
+        <ion-list>
+            <li class="item item-thumbnail-left item-icon-right">
+                <div class="avatar" ng-style="{'background-image': 'url(' + getPhoto({jid: userJid}) + ')'}"></div>
+                <i class="icon ion-record icon-status" ng-class="getPresence()"></i>
+                <h2 ng-bind="getName({jid: userJid})"></h2>
+                <p ng-bind="userJid"></p>
+                <i class="icon calm" ng-class="getSubscriptionType({jid: userJid})"></i>
+            </li>
+        </ion-list>
+        <ion-list ng-if="profile">
+            <li class="item">
+                <div class="row">
+                    <div class="col">Nickname</div>
+                    <div class="col" ng-bind="profile.nickname['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Full Name</div>
+                    <div class="col" ng-bind="profile.fn['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Family Name</div>
+                    <div class="col" ng-bind="profile.n.family['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Given Name</div>
+                    <div class="col" ng-bind="profile.n.given['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Date Of Birth</div>
+                    <div class="col" ng-bind="profile.bday['#text']"></div>
+                </div>
+            </li>
+            <li class="item">
+                <div class="row">
+                    <div class="col">Email</div>
+                    <div class="col" ng-bind="profile.email.userid['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">URL</div>
+                    <div class="col" ng-bind="profile.url['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Telephone</div>
+                    <div class="col" ng-bind="profile.tel.number['#text']"></div>
+                </div>
+            </li>
+            <li class="item item-icon-right">
+                <div class="row">
+                    <div class="col">Geolocation</div>
+                    <div class="col" ng-bind="profile.geo['#text']"></div>
+                </div>
+                <i class="icon ion-location" ng-click="openMap()"></i>
+            </li>
+            <li class="item">
+                <div class="row">
+                    <div class="col">Street</div>
+                    <div class="col" ng-bind="profile.adr.street['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Extended Info</div>
+                    <div class="col" ng-bind="profile.adr.extadd['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">City</div>
+                    <div class="col" ng-bind="profile.adr.locality['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Region</div>
+                    <div class="col" ng-bind="profile.adr.region['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Postal Code</div>
+                    <div class="col" ng-bind="profile.adr.pcode['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Country</div>
+                    <div class="col" ng-bind="profile.adr.ctry['#text']"></div>
+                </div>
+            </li>
+            <li class="item">
+                <div class="row">
+                    <div class="col">Organization</div>
+                    <div class="col" ng-bind="profile.org.orgname['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Unit</div>
+                    <div class="col" ng-bind="profile.org.orgunit['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Title</div>
+                    <div class="col" ng-bind="profile.title['#text']"></div>
+                </div>
+                <div class="row">
+                    <div class="col">Role</div>
+                    <div class="col" ng-bind="profile.role['#text']"></div>
+                </div>
+            </li>
+            <li class="item userNote">
+                <div class="row">
+                    <div class="col">Note</div>
+                    <div class="col" ng-bind="profile.desc['#text']"></div>
+                </div>
+            </li>
+        </ion-list>
+    </ion-content>
+</ion-view>

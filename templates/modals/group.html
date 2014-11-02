@@ -1,0 +1,7 @@
+<label class="item item-input item-select">
+    <span class="input-label">Choose:</span>
+    <select ng-model="customGroup.selected" ng-options="item.value as item.group for item in customGroup.groups" ng-change="updateInput(customGroup)"></select>
+</label>
+<label class="item item-input">
+    <input ng-disabled="customGroup.ungroup" type="text" ng-model="customGroup.group" placeholder="Group Name">
+</label>

@@ -1,0 +1,36 @@
+<ion-side-menus>
+    
+    <!-- Center content -->
+    <ion-side-menu-content>
+        <ion-nav-bar no-tap-scroll="true" class="bar-light mainBar" ng-controller="Bar">
+            <ion-nav-back-button class="button-clear button-royal"> Back</ion-nav-back-button>
+            <ion-nav-buttons side="right">
+                <button class="button button-clear icon ion-navicon-round button-royal" ng-click="toggleRight()"><span ng-show="unread > 0" class="badge badge-positive" ng-bind="unread"></span></button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent" animation="slide-left-right-ios7"></ion-nav-view>
+    </ion-side-menu-content>
+    
+    <!-- Right menu -->
+    <ion-side-menu side="right" ng-controller="Core">
+        <ion-header-bar class="bar-light">
+            <h1 class="title">IX</h1>
+        </ion-header-bar>
+        <ion-content class="has-header" ng-class="{fullHeight: !connected()}">
+            <div class="notLoggedIn calm" ng-show="!connected()">You are not logged in.</div>
+            <ion-list ng-show="connected()">
+                <ion-item menu-close href="#/IX/index">Profile</ion-item>
+                <ion-item menu-close href="#/IX/contacts">Contacts</ion-item>
+                <ion-item menu-close href="#/IX/chats">Chats<span class="badge badge-positive" ng-show="unread" ng-bind="unread"></span></ion-item>
+                <ion-item menu-close>Rooms</ion-item>
+                <ion-item ng-show="requests.length" ng-click="openRequestsModal()">Requests<span class="badge badge-positive" ng-bind="requests.length"></span></ion-item>
+            </ion-list>
+        </ion-content>
+        <ion-footer-bar class="bar-light">
+            <div class="button-bar" ng-show="connected()">
+                <a menu-close class="button button-royal button-clear" nav-clear ng-click="logOut()">Log Out</a>
+            </div>
+        </ion-footer-bar>
+    </ion-side-menu>
+
+</ion-side-menus>

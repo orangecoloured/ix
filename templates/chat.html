@@ -1,0 +1,20 @@
+<ion-view title="{{getName({jid: userJid})}}">
+    <ion-content class="chat">
+        <ion-list>
+            <li class="item" ng-repeat="message in chat.messages" ng-class="{self: message.self, notSelf: !message.self}">
+                <div class="messageBody" ng-bind-html="message.body['#text']"></div>
+                <span class="item-note">{{message.delay['@attributes'].time}}</span><i class="icon-delivered icon ion-checkmark-round energized" ng-show="message.self && message.delivered"></i>
+                <span ng-if="message.delay['#text']" class="offlineMessage" ng-bind="message.delay['#text']"></span>
+            </li>
+            <li class="item chatstate" ng-show="chat.chatstate == 'composing' || chat.chatstate == 'paused'">
+                <i class="icon ion-edit" ng-class="chat.chatstate"></i>
+            </li>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar class="chat-bar bar-light item-input-inset">
+        <label class="item-input-wrapper">
+            <textarea placeholder="Message" ng-model="myMessage" ng-change="changeState()"></textarea>
+        </label>
+        <button class="button button-clear button-positive icon ion-paper-airplane" ng-click="sendMessage($event)"></button>
+    </ion-footer-bar>
+</ion-view>

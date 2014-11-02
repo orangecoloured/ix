@@ -1,0 +1,108 @@
+<ion-view hide-back-button="true" title="{{Title}}">
+    <ion-content class="profile" ng-class="{fullHeight: !connected()}">
+        <div class="logo" ng-show="!connected()"></div>
+        <ion-list ng-show="connected()">
+            <li class="item item-thumbnail-left">
+                <div class="avatar" ng-style="{'background-image': 'url(' + getPhoto({jid: myJid}) + ')'}"></div>
+                <label class="item item-input item-select item-status">
+                    <select ng-model="selfPresence.show" ng-options="status.value as status.name for status in statuses" ng-change="updatePresence()"></select>
+                </label>
+                <p class="item item-icon-right item-status-text">
+                    {{selfPresence.status || 'Status Text'}}
+                    <i class="icon ion-edit icon-small" ng-click="changeStatusText()"></i>
+                </p>
+            </li>
+            <label class="item item-input">
+                <span class="input-label">Nickname</span>
+                <input type="text" ng-model="profile.nickname['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Full Name</span>
+                <input type="text" ng-model="profile.fn['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Family Name</span>
+                <input type="text" ng-model="profile.n.family['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Given Name</span>
+                <input type="text" ng-model="profile.n.given['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Date Of Birth</span>
+                <input type="date" ng-model="profile.bday['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Email</span>
+                <input type="text" ng-model="profile.email.userid['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">URL</span>
+                <input type="text" ng-model="profile.url['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Telephone</span>
+                <input type="tel" ng-model="profile.tel.number['#text']">
+            </label>
+            <li class="item item-icon-right map-item">
+                <label class="item-input">
+                    <span class="input-label">Geolocation</span>
+                    <input type="text" ng-model="profile.geo['#text']">
+                </label>
+                <i class="icon ion-location" ng-click="openMap()"></i>
+            </li>
+            <label class="item item-input">
+                <span class="input-label">Street</span>
+                <input type="text" ng-model="profile.adr.street['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Extended Info</span>
+                <input type="text" ng-model="profile.adr.extadd['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">City</span>
+                <input type="text" ng-model="profile.adr.locality['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Region</span>
+                <input type="text" ng-model="profile.adr.region['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Postal Code</span>
+                <input type="text" ng-model="profile.adr.pcode['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Country</span>
+                <input type="text" ng-model="profile.adr.ctry['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Organization</span>
+                <input type="text" ng-model="profile.org.orgname['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Unit</span>
+                <input type="text" ng-model="profile.org.orgunit['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Title</span>
+                <input type="text" ng-model="profile.title['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Role</span>
+                <input type="text" ng-model="profile.role['#text']">
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Note</span>
+                <textarea ng-model="profile.desc['#text']"></textarea>
+            </label>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar class="bar-light">
+        <div class="button-bar" ng-show="!connected()">
+            <a class="button button-royal button-clear" ng-click="openLogin()">Log In</a>
+        </div>
+        <div class="button-bar" ng-show="connected()">
+            <a class="button button-royal button-clear" ng-click="setProfile()">Update Profile</a>
+        </div>
+    </ion-footer-bar>
+</ion-view>

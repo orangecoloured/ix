@@ -1,0 +1,27 @@
+<ion-view title="Contacts">
+    <ion-content>
+        <ion-refresher refreshing-icon="ion-refreshing" pulling-icon="ion-arrow-down-c" refreshing-text="" pulling-text="" on-refresh="refresh()"></ion-refresher>
+        <ion-list class="roster">
+            <li class="item item-icon-right"
+                collection-repeat="item in roster"
+                collection-item-height="getItemHeight(item)"
+                ng-click="clickRosterItem(item)"
+                on-hold="holdRosterItem(item)"
+                ng-class="{'item-avatar': !item.isGroupName, 'item-divider': item.isGroupName}">
+                <span ng-if="item.isGroupName" ng-bind="item.groupName"></span>
+                <div class="user" ng-if="!item.isGroupName">
+                    <div class="avatar" ng-style="{'background-image': 'url(' + getPhoto({jid: item['@attributes'].jid}) + ')'}"></div>
+                    <i class="icon ion-record icon-status" ng-class="getPresence(item)"></i>
+                    <h2 ng-bind="getName({jid: item['@attributes'].jid})"></h2>
+                    <p ng-bind="getStatusText(item)"></p>
+                    <i class="icon calm" ng-class="getSubscriptionType(item)"></i>
+                </div>
+            </li>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar class="bar-light">
+        <div class="button-bar">
+            <a class="button button-royal button-clear" ng-click="showAddContact()">Add Contact</a>
+        </div>
+    </ion-footer-bar>
+</ion-view>

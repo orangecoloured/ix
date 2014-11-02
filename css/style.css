@@ -1,0 +1,330 @@
+body {
+    cursor: url('../img/finger.png'), auto;
+}
+
+.fullHeight>.scroll{
+    height: 100%;
+}
+
+.bothSubscribed{
+    display: none;
+}
+
+/* Logo */
+
+.logo{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: url(../img/ix.png) no-repeat;
+    background-size: cover;
+}
+
+/* Menu */
+
+.notLoggedIn{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1%;
+    text-align: center;
+}
+
+/* Bar counter */
+
+.mainBar .right-buttons button .badge{
+    position: absolute;
+    right: 50%;
+    top: 0;
+}
+
+/* Profile */
+
+.profile .list{
+    padding: 0;
+}
+.profile .item{
+    border: none;
+    padding: 8px 16px;
+}
+.profile .item.map-item{
+    padding: 0 54px 0 0;
+}
+.profile .item-thumbnail-left{
+    min-height: 104px;
+    padding: 16px  16px 8px 112px;
+}
+.profile .avatar{
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    width: 80px;
+    height: 80px;
+    background-size: cover;
+    background-position: center center;
+}
+.profile .icon-status{
+    left: 76px;
+    top: 72px;
+    height: 16px;
+    width: 16px;
+    font-size: 18px;
+    position: absolute;
+}
+.profile .icon-status.stable{
+    display: none;
+}
+.profile .icon-status:before{
+    width: 16px;
+}
+.profile .row, .profile .col{
+    padding: 5px 0;
+}
+.profile .col:first-child{
+    color: #888;
+}
+.profile .userNote{
+    white-space: normal;
+}
+
+/* Index */
+
+.profile .item-status{
+    height: 43px;
+    padding-left: 0;
+}
+.item-status>select{
+    max-width: 100%;
+    right: auto;
+    left: 0;
+    padding-left: 0;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    direction: ltr;
+}
+.profile .item-status-text{
+    padding-left: 0;
+}
+.profile .item-status-text>i{
+    font-size: 24px;
+}
+
+/* Map */
+
+map{
+    display: block;
+    min-height: 100%;
+}
+
+/* Roster */
+
+.roster .list{
+    padding: 0;
+}
+.roster .item{
+    width: 100%;
+}
+
+.roster .item-avatar{
+    min-height: 64px;
+    height: 64px;
+    padding: 0;
+    border: none;
+}
+.roster .user{
+    height: 64px;
+    padding: 12px 16px;
+}
+.roster .avatar{
+    float: left;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+    font-size: 0;
+    line-height: 0;
+    margin-right: 16px;
+    background-size: cover;
+    background-position: center center;
+}
+.roster .icon-status{
+    left: 42px;
+    top: 36px;
+    height: 16px;
+    width: 16px;
+    font-size: 18px;
+    position: absolute;
+}
+.roster .icon-status.stable{
+    display: none;
+}
+.roster .icon-status:before{
+    width: 16px;
+}
+.roster .user h2{
+    line-height: 20px;
+    margin-bottom: 4px;
+}
+.roster .user p{
+    line-height: 16px;
+}
+
+.roster .item-divider{
+    height: 40px;
+    border: none;
+    line-height: 20px;
+    padding: 10px 16px;
+}
+
+/* Chat */
+
+.chat.has-footer{
+    bottom: 88px;
+}
+.chat-bar.bar-footer{
+    height: 88px;
+}
+.chat-bar.bar-footer textarea{
+    height: 64px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.chat-bar textarea{
+    resize: none;
+    background: none;
+}
+
+.chat ion-list>.list{
+    padding-top: 16px;
+}
+.chat ion-list .item{
+    border-color: rgba(0,0,0,0);
+    white-space: normal;
+    padding-top: 0;
+    padding-bottom: 32px;
+}
+
+.chat ion-list .chatstate{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: -32px;
+}
+.chat ion-list .chatstate i:before{
+    -webkit-transform-origin: 0% 100% 0;
+    -moz-transform-origin: 0% 100% 0;
+    transform-origin: 0% 100% 0;
+}
+.chat ion-list .chatstate i.composing:before{
+    -webkit-animation: composing 200ms infinite linear;
+    -moz-animation: composing 200ms infinite linear;
+    -o-animation: composing 200ms infinite linear;
+    -ms-animation: composing 200ms infinite linear;
+    animation: composing 200ms infinite linear;
+}
+.chat ion-list .chatstate i.paused:before{
+    -webkit-transform: translate3d(0, 0, 0) rotate(45deg);
+    -moz-transform: translate3d(0, 0, 0) rotate(45deg);
+    -o-transform: translate3d(0, 0, 0) rotate(45deg);
+    -ms-transform: translate3d(0, 0, 0) rotate(45deg);
+    transform: translate3d(0, 0, 0) rotate(45deg);
+}
+
+@-moz-keyframes composing {
+    0%, 100% { -moz-transform: rotate(-8deg); }
+    50% { -moz-transform: rotate(8deg); } 
+}
+@-webkit-keyframes composing {
+    0%, 100% { -webkit-transform: rotate(-8deg); }
+    50% { -webkit-transform: rotate(8deg); }
+}
+@-o-keyframes composing {
+    0%, 100% { -o-transform: rotate(-8deg); }
+    50% { -o-transform: rotate(8deg); }
+}
+@-ms-keyframes composing {
+    0%, 100% { -ms-transform: rotate(-8deg); }
+    50% { -ms-transform: rotate(8deg); }
+}
+@keyframes composing {
+    0%, 100% { transform: rotate(-8deg); }
+    50% { transform: rotate(8deg); }
+}
+
+.chat ion-list .item .icon-delivered{
+    margin-left: 8px;
+}
+
+.chat ion-list .item .messageBody{
+    position: relative;
+    padding: 10px 20px;
+    border-radius: 25px;
+    max-width: 70%;
+}
+.chat ion-list .item .messageBody:before, .chat ion-list .item .messageBody:after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 22px;
+}
+.chat ion-list .item .messageBody:before{
+    z-index: -1;
+    width: 20px;
+    background-color: inherit;
+}
+.chat ion-list .item .messageBody:after{
+    z-index: 1;
+    width: 10px;
+    background: #fff;
+}
+
+.chat ion-list .item.self .messageBody{
+    color: #fff;
+    background-color: #4a87ee;
+    float: right;
+}
+.chat ion-list .item.self .messageBody:before{
+    right: -7px;
+    border-bottom-left-radius: 16px 14px;
+}
+.chat ion-list .item.self .messageBody:after{
+    right: -10px;
+    border-radius: 0 0 0 10px;
+}
+
+.chat ion-list .item.notSelf .messageBody{
+    color: #000;
+    background-color: #E5E5EA;
+    float: left;
+}
+.chat ion-list .item.notSelf .messageBody:before{
+    left: -7px;
+    border-bottom-right-radius: 14px 16px;
+}
+.chat ion-list .item.notSelf .messageBody:after{
+    left: -10px;
+    border-radius: 0 0 10px 0;
+}
+
+.chat ion-list .offlineMessage{
+    float: left;
+    display: block;
+    clear: left;
+    font-size: 12px;
+    color: #888;
+}
+
+.chat ion-list .item.self .item-note{
+    float: left;
+}

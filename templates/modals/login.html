@@ -1,0 +1,25 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <button class="button-clear button ion-ios7-arrow-back button-royal" ng-click="closeModal()"> Back</button>
+        <h1 class="title">Log In</h1>
+    </ion-header-bar>
+    <ion-content>
+    <form ng-submit="login()">
+        <ion-list>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">BOSH Server</span>
+                <input type="text" placeholder="BOSH Server" ng-model="loginData.url">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Username</span>
+                <input type="email" placeholder="Login" ng-model="loginData.jid">
+            </label>
+            <label class="item item-input item-floating-label">
+                <span class="input-label">Password</span>
+                <input type="text" placeholder="Password" ng-model="loginData.password">
+            </label>
+            <button class="button button-block button-royal button-clear" type="submit">Log In</button>
+        </ion-list>
+    </form>
+    </ion-content>
+</ion-modal-view>

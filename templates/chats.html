@@ -1,0 +1,10 @@
+<ion-view title="Chats">
+    <ion-content>
+        <ion-list>
+            <a class="item item-icon-right" ng-repeat="item in chats" ng-click="getChat(item)" on-hold="holdChatsItem(item)">
+                {{getName(item)}}
+                <i class="icon ion-flash" ng-show="item.unread"></i>
+            </a>
+        </ion-list>
+    </ion-content>
+</ion-view>
