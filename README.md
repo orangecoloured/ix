@@ -14,3 +14,5 @@ Uses BOSH.
 * Chatstates (composing, active etc.)
 * Receipts
 * Reattaching to previous session (works not very well)
+
+Online version: http://ix.cybercog.su
