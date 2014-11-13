@@ -9,7 +9,7 @@ Uses BOSH.
 
 * Messaging
 * Managing roster
-* Managing own profile with an exception of the photo
+* Managing own profile with
 * Statuses (online, away etc.)
 * Chatstates (composing, active etc.)
 * Receipts
