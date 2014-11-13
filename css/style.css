@@ -74,13 +74,20 @@ body {
     background-size: cover;
     background-position: center center;
 }
-.profile .icon-status{
+.profile:not(.myProfile) .icon-status{
     left: 76px;
     top: 72px;
     height: 16px;
     width: 16px;
     font-size: 18px;
     position: absolute;
+}
+.myProfile .icon-status{
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 16px;
+    font-size: 18px;
 }
 .profile .icon-status.stable{
     display: none;
@@ -102,12 +109,10 @@ body {
 
 .profile .item-status{
     height: 43px;
-    padding-left: 0;
 }
 .item-status>select{
     max-width: 100%;
     right: auto;
-    left: 0;
     padding-left: 0;
     padding-top: 11px;
     padding-bottom: 11px;
@@ -327,4 +332,123 @@ map{
 
 .chat ion-list .item.self .item-note{
     float: left;
+}
+
+/* Crop & Resize */
+
+.cropResize{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.resize-container{
+    position: absolute;
+    display: block;
+    cursor: move;
+}
+
+.resize-container img{
+    display: block;
+}
+
+.overlay{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -80px;
+    margin-top: -80px;
+    width: 160px;
+    height: 160px;
+    pointer-events: none;
+    z-index: 2;
+}
+.overlay:after, .overlay:before{
+    content: '';
+    position: absolute;
+    display: block;
+    width: 4096px;
+    border-color: rgba(255,255,255,.4);
+    border-width: 1968px;
+    border
+}
+.overlay:before{
+    left: -1968px;
+    top: 0;
+    height: 160px;
+    border-left-style: solid;
+    border-right-style: solid;
+}
+.overlay:after{
+    left: -2028px;
+    top: -1968px;
+    height: 4096px;
+    border-top-style: solid;
+    border-bottom-style: solid;
+}
+
+.resize-container:hover img, .resize-container:active img, .resize-container:hover .resize-handle, .resize-container:active .resize-handle{
+    outline: 1px dashed rgba(0, 0, 0, .4);
+}
+
+.resize-handle-ne, .resize-handle-se, .resize-handle-nw, .resize-handle-sw{
+    text-align: center;
+    line-height: 24px;
+    position: absolute;
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: rgb(255,255,255);
+    z-index: 1;
+}
+
+.resize-handle-nw {
+    top: -10px;
+    left: -10px;
+    cursor: nw-resize;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.resize-handle-sw {
+    bottom: -10px;
+    left: -10px;
+    cursor: sw-resize;
+}
+
+.resize-handle-ne {
+    top: -10px;
+    right: -10px;
+    cursor: ne-resize;
+}
+
+.resize-handle-se {
+    bottom: -10px;
+    right: -10px;
+    cursor: se-resize;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+.btn-crop{
+    position: absolute;
+    vertical-align: bottom;
+    right: 5px;
+    bottom: 5px;
+    padding: 6px 10px;
+    z-index: 999;
+    background-color: rgb(222,60,80);
+    border: none;
+    border-radius: 5px;
+    color: #FFF;
+}
+
+.btn-crop img{
+    vertical-align: middle;
+    margin-left: 8px;
 }

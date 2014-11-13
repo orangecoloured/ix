@@ -1,6 +1,6 @@
 angular.module('IX.controllers')
 
-.controller('Index', function($scope, $rootScope, $ionicPlatform, Modal, ActionSheet, Popup, Loading, BOSH, base64, SharedProperties, Profile, Presence) {
+.controller('Index', function($scope, $rootScope, $ionicPlatform, Modal, ActionSheet, Popup, Confirm, Loading, BOSH, base64, SharedProperties, Profile, Presence, CropResize) {
 
     /*$scope.mapCreated = function(map) {
         $scope.map = map;
@@ -101,7 +101,7 @@ angular.module('IX.controllers')
     
     $scope.statuses = [
         {
-            value: 1,
+            value: 'online',
             name: 'Online'
         },
         {
@@ -122,6 +122,10 @@ angular.module('IX.controllers')
         }
     ];
 
+    $scope.getSelfPresence = function() {
+        return Presence.getStatus({self: true});
+    }
+
     $scope.updatePresence = function() {
 
         switch ($scope.selfPresence.show) {
@@ -138,7 +142,7 @@ angular.module('IX.controllers')
                 $scope.selfPresence.priority = 4;
                 break;
             }
-            case 1:
+            case 'online':
             default: {
                 $scope.selfPresence.priority = 2;
             }
@@ -173,6 +177,150 @@ angular.module('IX.controllers')
                     }
                 }
             ]
+        });
+    }
+
+    function removeProfilePicture() {
+        delete sharedData.profiles[sharedData.myJid].photo;
+    }
+
+    function getPictureFromPhone(obj) {
+
+        navigator.camera.getPicture(
+            uploadPhoto,
+            function(message) { alert('get picture failed'); },
+            {
+                quality: 80,
+                destinationType: navigator.camera.DestinationType.DATA_URL,
+                sourceType: navigator.camera.PictureSourceType[obj.sourceType],
+                allowEdit: true,
+                encodingType: navigator.camera.EncodingType.JPEG,
+                targetWidth: obj.targetWidth || null,
+                targetHeight: obj.targetHeight || null,
+                mediaType: navigator.camera.MediaType.PICTURE,
+                correctOrientation: false,
+                saveToPhotoAlbum: false,
+                cameraDirection: navigator.camera.Direction.FRONT
+            }
+        );
+    }
+
+    function usePcCamera() {
+        
+    }
+
+    function uploadPhoto(obj) {
+        $scope.$apply(function(){
+            sharedData.profiles[sharedData.myJid].photo = {
+                type:{
+                    '#text': obj.type || 'image/jpeg'
+                },
+                binval: {
+                    '#text': obj.base64 || obj
+                }
+            }
+        });
+    }
+
+    $scope.checkUploadedPcPicture = function() {
+
+        var input = $scope.pictureInput;
+
+        if (input.files && input.files[0]) {
+            var file = input.files[0],
+                reader = new FileReader();
+
+            reader.onloadend = function (e) {
+                Modal.init($scope, {template: 'cropResize'}).then(function(modal) {
+                    modal.show();
+                    CropResize.init({
+                        scope: $scope,
+                        dataURL: e.target.result
+                    });
+                });
+                /*uploadPhoto({
+                    type: file.type,
+                    base64: e.target.result.split(',')[1]
+                });*/
+                console.log(e.target);
+            }
+
+            console.log(file);
+            
+            if (file.type.indexOf('image') > -1) {
+                reader.readAsDataURL(file);
+                $scope.pictureInput = null;
+            }
+        }
+    }
+
+    function uploadPC() {
+        var body = document.getElementsByTagName('body')[0];
+        $scope.pictureInput = document.createElement('input');
+
+        $scope.pictureInput.type = 'file';
+        $scope.pictureInput.onchange = $scope.checkUploadedPcPicture;
+        
+        $scope.pictureInput.click();
+    }
+
+    $scope.avatarOptions = function() {
+
+        var buttons = [
+            {
+                text: 'Upload',
+                callback: function() {
+
+                    if(window.cordova) {
+                        getPictureFromPhone({
+                            targetWidth: 320,
+                            targetHeight: 320,
+                            sourceType: 'PHOTOLIBRARY'
+                        });
+                    } else {
+                        uploadPC();
+                    }
+                }
+            },
+            {
+                text: 'Set Link',
+                callback: function() {
+                    console.log('LINK');
+                }
+            },
+            {
+                text: 'Use Camera',
+                callback: function() {
+                    if(window.cordova) {
+                        getPictureFromPhone({
+                            targetWidth: 320,
+                            targetHeight: 320,
+                            sourceType: 'CAMERA'
+                        });
+                    } else {
+                        usePcCamera();
+                    }
+                }
+            }
+        ];
+
+        ActionSheet.show({
+            titleText: 'Profile Picture',
+            buttons: buttons,
+            destructiveText: 'Remove',
+            destructiveAction: function() {
+                Confirm.show({
+                    title: 'Remove Profile Picture',
+                    template: 'Do you want to remove your profile picture?',
+                    cancelText: 'No',
+                    cancelType: 'button-clear button-default',
+                    okText: 'Yes',
+                    okType: 'button-clear button-assertive',
+                    positiveCallback: function() {
+                        removeProfilePicture();
+                    }
+                });
+            }
         });
     }
 

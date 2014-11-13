@@ -82,7 +82,7 @@ angular.module('IX', ['ionic', 'ngStorage', 'IX.services', 'IX.directives', 'IX.
         resource: '/IX',
         connectionStatus: '',
         selfPresence: {
-            show: 1,
+            show: 'online',
             priority: 2,
             status: ''
         }

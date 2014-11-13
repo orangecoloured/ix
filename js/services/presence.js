@@ -21,7 +21,7 @@ angular.module('IX.services')
                     console.log(obj);
                     presence = $pres();
 
-                    if (obj.show && obj.show !== 1) {
+                    if (obj.show && obj.show != 'online') {
                         presence.c('show').t(obj.show).up();
                     }
 
@@ -73,11 +73,20 @@ angular.module('IX.services')
 
         getStatus : function(obj) {
 
-            var presence = sharedData.presences[obj['@attributes'].jid],
+            var presence = null,
                 status = null;
 
-            if (presence != null) {
-                status = presence['@attributes'].type || (presence.show != null ? presence.show['#text'] : 'online');
+            if (obj.self) {
+
+                status = sharedData.selfPresence.show;
+            
+            } else {
+
+                presence = sharedData.presences[obj['@attributes'].jid];
+
+                if (presence != null) {
+                    status = presence['@attributes'].type || (presence.show != null ? presence.show['#text'] : 'online');
+                }
             }
 
             switch (status) {

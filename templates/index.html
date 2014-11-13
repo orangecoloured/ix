@@ -1,10 +1,11 @@
 <ion-view hide-back-button="true" title="{{Title}}">
-    <ion-content class="profile" ng-class="{fullHeight: !connected()}">
+    <ion-content class="profile myProfile" ng-class="{fullHeight: !connected()}">
         <div class="logo" ng-show="!connected()"></div>
         <ion-list ng-show="connected()">
             <li class="item item-thumbnail-left">
-                <div class="avatar" ng-style="{'background-image': 'url(' + getPhoto({jid: myJid}) + ')'}"></div>
-                <label class="item item-input item-select item-status">
+                <a class="avatar" ng-style="{'background-image': 'url(' + getPhoto({jid: myJid}) + ')'}" on-hold="avatarOptions()"></a>
+                <label class="item item-input item-select item-status item-icon-left">
+                    <i class="icon ion-record icon-status" ng-class="getSelfPresence()"></i>
                     <select ng-model="selfPresence.show" ng-options="status.value as status.name for status in statuses" ng-change="updatePresence()"></select>
                 </label>
                 <p class="item item-icon-right item-status-text">
