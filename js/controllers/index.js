@@ -1,6 +1,6 @@
 angular.module('IX.controllers')
 
-.controller('Index', function($scope, $rootScope, $ionicPlatform, Modal, ActionSheet, Popup, Confirm, Loading, BOSH, base64, SharedProperties, Profile, Presence, CropResize) {
+.controller('Index', function($scope, $rootScope, $ionicPlatform, Modal, ActionSheet, Popup, Confirm, Loading, BOSH, base64, SharedProperties, Profile, Presence, CropResize, Webcam) {
 
     /*$scope.mapCreated = function(map) {
         $scope.map = map;
@@ -206,7 +206,24 @@ angular.module('IX.controllers')
     }
 
     function usePcCamera() {
-        
+        Modal.init($scope, {template: 'webcam'}).then(function(modal) {
+            modal.show();
+            Webcam.init({
+                scope: $scope
+            });
+        });
+    }
+
+    $scope.takeWebcamPhoto = function() {
+        Webcam.takePicture();
+    }
+
+    $scope.acceptWebcamPhoto = function() {
+        Webcam.acceptPicture();
+    }
+
+    $scope.retakeWebcamPhoto = function() {
+        Webcam.retakePicture();
     }
 
     function uploadPhoto(obj) {

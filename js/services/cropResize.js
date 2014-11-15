@@ -4,17 +4,17 @@ angular.module('IX.services')
 
     var sharedData = SharedProperties.sharedObject,
         data = {
-        container: null,
-        component: null,
-        orig_src: new Image(),
-        image_target: null,
-        event_state: {},
-        min_width: null, //image_target.width,
-        min_height: null, //image_target.height,
-        max_width: 4096,
-        max_height: 4096,
-        resize_canvas: document.createElement('canvas')
-    }
+            container: null,
+            component: null,
+            orig_src: new Image(),
+            image_target: null,
+            event_state: {},
+            min_width: null, //image_target.width,
+            min_height: null, //image_target.height,
+            max_width: 4096,
+            max_height: 4096,
+            resize_canvas: document.createElement('canvas')
+        }
     
     function saveEventState(e) {
         data.event_state.container_width = data.container.clientWidth;
