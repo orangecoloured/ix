@@ -1,6 +1,6 @@
 angular.module('IX.controllers')
 
-.controller('Core', function($scope, $rootScope, $location, $localStorage, $ionicSideMenuDelegate, Modal, BOSH, vCard, Receipt, Presence, Message, Chatstate, SharedProperties, Roster, Profile) {
+.controller('Core', function($scope, $rootScope, $location, $localStorage, $ionicSideMenuDelegate, Modal, BOSH, vCard, Receipt, Presence, Message, Disco, Groupchat, Chatstate, SharedProperties, Roster, Profile) {
 
     var sharedData = SharedProperties.sharedObject;
     $scope.connected = BOSH.checkConnection;
@@ -141,6 +141,16 @@ angular.module('IX.controllers')
         return true;
     }
 
+    function onRoomMessage(message) {
+
+        /*$scope.$apply(function(){
+            RoomMessage.process(message);
+        });*/
+        console.log(message);
+
+        return true;
+    }
+
     function onChatstate(message) {
 
         $scope.$apply(function(){
@@ -181,7 +191,8 @@ angular.module('IX.controllers')
             console.log('INPUT');
             console.log(elem);
         }
-        sharedData.connection.addHandler(onMessage, null, 'message');
+        sharedData.connection.addHandler(onMessage, null, 'message', 'chat');
+        sharedData.connection.addHandler(onRoomMessage, null, 'message', 'groupchat');
         sharedData.connection.addHandler(onChatstate, Strophe.NS.CHATSTATES, 'message');
         sharedData.connection.addHandler(onReceipt, Strophe.NS.RECEIPTS, 'message');
         sharedData.connection.addHandler(onPresence, null, 'presence');
@@ -194,6 +205,15 @@ angular.module('IX.controllers')
             Profile.getAll(roster);
         }, function(roster) {
             console.log('Error getting roster');
+        });
+
+        Disco.getServices()
+        .then(function(services) {
+
+            Groupchat.init();
+            
+        }, function(services) {
+            console.log('Error getting services');
         });
 
         $rootScope.$broadcast('present');

@@ -273,53 +273,46 @@ map{
 
 .chat ion-list .item .messageBody{
     position: relative;
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 10px 15px;
     max-width: 70%;
-}
-.chat ion-list .item .messageBody:before, .chat ion-list .item .messageBody:after{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    height: 22px;
+    border-radius: 0 4px 4px 4px;
 }
 .chat ion-list .item .messageBody:before{
-    z-index: -1;
-    width: 20px;
-    background-color: inherit;
-}
-.chat ion-list .item .messageBody:after{
-    z-index: 1;
-    width: 10px;
-    background: #fff;
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 0;
+    width: 0;
+    border-width: 3px;
+    border-style: solid;
 }
 
 .chat ion-list .item.self .messageBody{
     color: #fff;
     background-color: #4a87ee;
     float: right;
+    border-radius: 4px 0 4px 4px;
 }
+
 .chat ion-list .item.self .messageBody:before{
-    right: -7px;
-    border-bottom-left-radius: 16px 14px;
-}
-.chat ion-list .item.self .messageBody:after{
-    right: -10px;
-    border-radius: 0 0 0 10px;
+    right: -6px;
+    border-top-color: #4a87ee;
+    border-right-color: rgba(0,0,0,0);
+    border-bottom-color: rgba(0,0,0,0);
+    border-left-color: #4a87ee;
 }
 
 .chat ion-list .item.notSelf .messageBody{
     color: #000;
-    background-color: #E5E5EA;
+    background-color: #e5e5ea;
     float: left;
 }
 .chat ion-list .item.notSelf .messageBody:before{
-    left: -7px;
-    border-bottom-right-radius: 14px 16px;
-}
-.chat ion-list .item.notSelf .messageBody:after{
-    left: -10px;
-    border-radius: 0 0 10px 0;
+    left: -6px;
+    border-top-color: #e5e5ea;
+    border-right-color: #e5e5ea;
+    border-bottom-color: rgba(0,0,0,0);
+    border-left-color: rgba(0,0,0,0);
 }
 
 .chat ion-list .offlineMessage{

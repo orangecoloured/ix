@@ -90,7 +90,7 @@ angular.module('IX.services')
                 
                         if (!data) {
                             console.log('Error getting vCard');
-                            deferred.reject(card);
+                            deferred.reject();
                         } else {
                             card = XML.parse(data);
 

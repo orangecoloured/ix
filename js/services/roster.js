@@ -355,10 +355,10 @@ angular.module('IX.services')
                             data: roster
                         });
                         
-                        if (roster.query.item.length) {
+                        if (roster.query.hasOwnProperty('item')) {
                             deferred.resolve(roster);
                         } else {
-                            deferred.reject(roster);
+                            deferred.reject();
                         }
 
                     });

@@ -49,6 +49,26 @@ angular.module('IX', ['ionic', 'ngStorage', 'IX.services', 'IX.directives', 'IX.
         }
     })
 
+    .state('IX.room', {
+        url: '/room/:jid',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/room.html',
+                controller: 'Room'
+            }
+        }
+    })
+
+    .state('IX.rooms', {
+        url: '/rooms',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/rooms.html',
+                controller: 'Rooms'
+            }
+        }
+    })
+
     .state('IX.profile', {
         url: '/profile/:jid',
         views: {
@@ -70,14 +90,16 @@ angular.module('IX', ['ionic', 'ngStorage', 'IX.services', 'IX.directives', 'IX.
 
     SharedProperties.sharedObject = {
         myJid: null,
-        connection : null,
-        profiles : {},
-        roster : {},
-        presences : {},
-        messagePool : {},
-        unread : 0,
-        subscriptions : [],
-        activeChat : null,
+        connection: null,
+        profiles: {},
+        roster: {},
+        presences: {},
+        messagePool: {},
+        rooms: {},
+        services: {},
+        unread: 0,
+        subscriptions: [],
+        activeChat: null,
         defaultPhoto: 'img/ix.png',
         resource: '/IX',
         connectionStatus: '',

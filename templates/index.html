@@ -46,10 +46,11 @@
                 <input type="tel" ng-model="profile.tel.number['#text']">
             </label>
             <li class="item item-icon-right map-item">
-                <label class="item-input">
+                <div class="item-input">
                     <span class="input-label">Geolocation</span>
-                    <input type="text" ng-model="profile.geo['#text']">
-                </label>
+                    <input type="text" ng-model="profile.geo.lat['#text']" placeholder="Latitude">
+                    <input type="text" ng-model="profile.geo.lon['#text']" placeholder="Longitude">
+                </div>
                 <i class="icon ion-location" ng-click="openMap()"></i>
             </li>
             <label class="item item-input">

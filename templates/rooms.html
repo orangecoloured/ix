@@ -1,0 +1,13 @@
+<ion-view title="Rooms">
+    <ion-content>
+        <ion-list>
+            <a class="item item-icon-right"
+                ng-repeat="item in rooms"
+                ng-click="clickRoomsItem(item)"
+                on-hold="holdRoomsItem(item)">
+                {{getName(item)}}
+                <span class="badge badge-calm">{{getParticipants(item)}}</span>
+            </a>
+        </ion-list>
+    </ion-content>
+</ion-view>
