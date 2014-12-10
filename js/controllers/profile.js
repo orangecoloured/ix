@@ -6,7 +6,7 @@ angular.module('IX.controllers')
 
     $scope.userJid = $stateParams.jid;
     $scope.profile = sharedData.profiles[$scope.userJid];
-
+console.log($scope.profile);
     $scope.getName = function(obj) {
         return Profile.getName(obj);
     }

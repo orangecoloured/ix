@@ -5,7 +5,7 @@ angular.module('IX.controllers')
     var sharedData = SharedProperties.sharedObject;
 
     $scope.roster = sharedData.roster.collection;
-console.log($scope.roster);
+
     $scope.customName = {text: null}
 
     $scope.getItemHeight = function(item) {
