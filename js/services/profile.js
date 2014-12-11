@@ -23,7 +23,9 @@ angular.module('IX.services')
             if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
                 builder.cnode(buildVcard(obj[key], key)).up();
             } else if (obj[key]) {
-                if (!Array.isArray(obj[key])) {
+                if (Array.isArray(obj[key])) {
+                    builder.t(obj[key].join(''));
+                } else {
                     builder.t(obj[key]);
                 }
             } else if (key != '#text') {
