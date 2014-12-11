@@ -12,7 +12,7 @@ angular.module('IX.services')
     function buildVcard(obj, parent) {
 
         var builder;
-        
+        console.log(parent);
         if (typeof parent === 'undefined') {
             builder = $build('vCard', {xmlns: Strophe.NS.VCARD, version: '2.0', prodid: '-//HandGen//NONSGML vGen v1.0//EN'});
         } else {
@@ -20,10 +20,10 @@ angular.module('IX.services')
         }
 
         for (var key in obj) {
-            if (typeof obj[key] === 'object') {
+            if (typeof obj[key] === 'object' && !Array.isArray(obj[key])) {
                 builder.cnode(buildVcard(obj[key], key)).up();
             } else if (obj[key]) {
-                if (obj[key].trim().length) {
+                if (!Array.isArray(obj[key])) {
                     builder.t(obj[key]);
                 }
             } else if (key != '#text') {

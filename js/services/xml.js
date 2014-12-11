@@ -25,10 +25,6 @@ angular.module('IX.services')
             } else if (xml.nodeType == 3) { // Text
 
                 obj = xml.value || xml.nodeValue;
-
-                if (!obj.trim().length) {
-                    obj = '';
-                }
             }
 
             // Process children

@@ -458,6 +458,7 @@ angular.module('IX.controllers')
         Profile.get({jid: sharedData.myJid})
         .then(function(card) {
             $scope.profile = card;
+            console.log($scope.profile);
             loggedIn();
         }, function(card) {
             $scope.profile = card;
