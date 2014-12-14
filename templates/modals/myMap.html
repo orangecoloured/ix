@@ -1,0 +1,15 @@
+<ion-modal-view>
+    <ion-header-bar>
+        <button class="button-clear button ion-ios7-arrow-back button-royal" ng-click="closeModal()"> Back</button>
+        <h1 class="title">Map</h1>
+        <button class="button-clear button button-royal" ng-click="setGeolocation()" ng-show="showSave()">Save</button>
+    </ion-header-bar>
+    <ion-content scroll="false" class="fullHeight">
+        <map on-create="mapCreated(map)" data-tap-disabled="true"></map>
+    </ion-content>
+    <ion-footer-bar class="bar-light">
+        <div class="button-bar">
+            <a class="button button-royal button-clear" ng-click="centerOnMe()">Find Me</a>
+        </div>
+    </ion-footer-bar>
+</ion-modal-view>

@@ -21,7 +21,7 @@ angular.module('IX.services', [])
         decode : function(string) {},
 
         checkIfArray : function(str) {
-            if (str instanceof Array) {
+            if (Array.isArray(str)) {
                 return str.join('');
             } else {
                 return str;

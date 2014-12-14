@@ -1,13 +1,27 @@
 angular.module('IX.controllers')
 
-.controller('Index', function($scope, $rootScope, $ionicPlatform, Modal, ActionSheet, Popup, Confirm, Loading, BOSH, base64, SharedProperties, Profile, Presence, CropResize, Webcam) {
+.controller('Index', function($scope, $rootScope, $ionicPlatform, Modal, ActionSheet, Popup, Confirm, Loading, BOSH, base64, SharedProperties, Profile, Presence, CropResize, Webcam, Map) {
 
-    /*$scope.mapCreated = function(map) {
-        $scope.map = map;
-    }*/
+    $scope.myMarker = null;
+    $scope.showSaveMapButton = false;
 
-    var myMarker = null,
-        dragListener = null;
+    $scope.showSave = function() {
+        return $scope.showSaveMapButton;
+    }
+
+    var dragListener = null,
+        tempGeolocation = {};
+
+    function saveTempGeolocation(obj) {
+        tempGeolocation = {
+            lat: obj.lat,
+            lon: obj.lon
+        }
+
+        $scope.$apply(function(){
+            $scope.showSaveMapButton = true;
+        });
+    }
 
     // Sets the map on all markers in the array.
     function setAllMap(map) {
@@ -39,7 +53,7 @@ angular.module('IX.controllers')
         }
         
         dragListener = google.maps.event.addListener(marker, 'dragend', function(event) {
-            $scope.setGeolocation({
+            saveTempGeolocation({
                 lat: event.latLng.lat().toFixed(6),
                 lon: event.latLng.lng().toFixed(6)
             });
@@ -47,32 +61,30 @@ angular.module('IX.controllers')
     }
 
     function placeMarker(location) {
-        if (myMarker) {
-            myMarker.setMap(null);
-        }
         
-        myMarker = new google.maps.Marker({
-            /*id: '123',*/
-            position: location,
+        if ($scope.myMarker) {
+            $scope.myMarker.setMap(null);
+        }
+
+        $scope.myMarker = Map.createMarker({
             draggable: true,
-            /*animation: google.maps.Animation.DROP,*/
-            map: $scope.map/*,
-            title: 'FUCK'*/
+            position: location,
+            map: $scope.map
         });
 
         console.log(location);
 
-        $scope.setGeolocation({
+        saveTempGeolocation({
             lat: location.lat().toFixed(6),
             lon: location.lng().toFixed(6)
         });
 
         //markers.push(marker);
 
-        infowindow.open($scope.map, myMarker);
+        infowindow.open($scope.map, $scope.myMarker);
         /*$scope.map.setCenter(location);*/
 
-        setMarkerDragListener(myMarker);
+        setMarkerDragListener($scope.myMarker);
     }
 
     var infowindow = new google.maps.InfoWindow({
@@ -81,63 +93,65 @@ angular.module('IX.controllers')
     });
 
     $scope.mapCreated = function(map) {
+
+        $scope.map = map;
+
+        google.maps.event.addListener($scope.map, 'click', function(event) {
+            placeMarker(event.latLng);
+        });
         
-        setTimeout(function(){
-            $scope.map = map;
+        if ($scope.profile.geo && $scope.profile.geo.lat['#text'] && $scope.profile.geo.lon['#text']) {
 
-            google.maps.event.addListener($scope.map, 'click', function(event) {
-                placeMarker(event.latLng);
-            });
+            setTimeout(function(){
 
-            if ($scope.profile.geo && $scope.profile.geo.lat['#text'] && $scope.profile.geo.lon['#text']) {
-                /*console.log($scope.profile.geo.lat['#text']);
-                console.log($scope.profile.geo.lon['#text']);
-                console.log(parseFloat($scope.profile.geo.lat['#text']));
-                console.log(parseFloat($scope.profile.geo.lon['#text']));*/
-                $scope.map.setCenter({lat: parseFloat($scope.profile.geo.lat['#text']), lng: parseFloat($scope.profile.geo.lon['#text'])});
-                /*google.maps.event.trigger($scope.map, 'resize');*/
-                myMarker = new google.maps.Marker({
+                Map.centerOnLocation({
+                    map: $scope.map,
+                    lat: parseFloat($scope.profile.geo.lat['#text']),
+                    lon: parseFloat($scope.profile.geo.lon['#text'])
+                });
+
+                $scope.myMarker = Map.createMarker({
                     draggable: true,
                     position: $scope.map.getCenter(),
-                    map: $scope.map,
-                    title: 'Click to zoom'
+                    map: $scope.map
                 });
-                setMarkerDragListener(myMarker);
-            }
-        }, 100);
+                
+                setMarkerDragListener($scope.myMarker);
+            }, 100);
+        }
     }
 
     $scope.centerOnMe = function () {
-        /*deleteMarkers();
 
-        return;*/
-        console.log("Centering");
-        if (!$scope.map) {
-            return;
-        }
+        Loading.show();
 
         navigator.geolocation.getCurrentPosition(function (pos) {
-            $scope.setGeolocation({
+            saveTempGeolocation({
                 lat: pos.coords.latitude.toFixed(6),
                 lon: pos.coords.longitude.toFixed(6)
             });
 
-            if (myMarker) {
-                myMarker.setMap(null);
+            if ($scope.myMarker) {
+                $scope.myMarker.setMap(null);
             }
 
-            console.log('Got pos', pos);
-            console.log($scope.profile);
-            $scope.map.setCenter({lat: pos.coords.latitude, lng: pos.coords.longitude});
-            myMarker = new google.maps.Marker({
-                draggable: true,
-                position: $scope.map.getCenter(),
+            Map.centerOnLocation({
                 map: $scope.map,
-                title: 'Click to zoom'
+                lat: pos.coords.latitude,
+                lon: pos.coords.longitude
             });
 
-            setMarkerDragListener(myMarker);
+            $scope.myMarker = Map.createMarker({
+                draggable: true,
+                position: $scope.map.getCenter(),
+                map: $scope.map
+            });
+
+            setMarkerDragListener($scope.myMarker);
+
+            Loading.hide();
         }, function (error) {
+            Loading.hide();
             alert('Unable to get location: ' + error.message);
         }, {
             enableHighAccuracy: false,
@@ -186,15 +200,17 @@ angular.module('IX.controllers')
         }
     ];
 
-    $scope.setGeolocation = function(obj) {
+    $scope.setGeolocation = function() {
         $scope.profile.geo = {
             lat: {
-                '#text': obj.lat
+                '#text': tempGeolocation.lat
             },
             lon: {
-                '#text': obj.lon
+                '#text': tempGeolocation.lon
             }
         }
+
+        $scope.closeModal();
     }
 
     $scope.getSelfPresence = function() {
@@ -440,7 +456,8 @@ angular.module('IX.controllers')
     }
 
     $scope.openMap = function() {
-        Modal.init($scope, {template: 'map'}).then(function(modal) {
+        $scope.showSaveMapButton = false;
+        Modal.init($scope, {template: 'myMap'}).then(function(modal) {
             modal.show();
         });
     }
@@ -480,7 +497,7 @@ angular.module('IX.controllers')
     $scope.login = function() {
 
         Loading.show({
-            login: true
+            message: 'login'
         });
 
         sharedData.myJid = $scope.loginData.jid;
@@ -506,7 +523,7 @@ angular.module('IX.controllers')
                     text: 'Yes',
                     callback: function() {
                         Loading.show({
-                            login: true
+                            message: 'login'
                         });
                         
                         SharedProperties.sharedObject.myJid = BOSH.getMyJid({bare: true});
